@@ -26,27 +26,30 @@ class Nav extends Component{
                 else {
                     this.changelogHandler(true);
                 }
-            })
+            });
+        this.props.history.push("/main");
     }
 
 
     signout(){
         localStorage.removeItem("token");
         this.changelogHandler(false);
-        this.props.history.push("/");
+        this.props.history.push("/main");
     }
 
     render() {
         if (this.props.isLogged === false) {
-            return (<div>
-                <NavLink className="nav__link" to="/login">Sign in</NavLink>
-                <NavLink className="nav__link" to="/register" >Sign up</NavLink>
+            return (<div className="nav__nav-container">
+                <NavLink className="nav__link" to="/login">Войти</NavLink>
+                <NavLink className="nav__link" to="/register" >Регистрация</NavLink>
+                <NavLink className="nav__link" to="/main">На Главную</NavLink>
             </div>)
         }
         else if (this.props.isLogged === true){
-            return (<div>
-                <NavLink className="nav__link" to="/notes">My notes</NavLink>
-                <button className="nav__button" onClick={this.signout}>Sign out</button>
+            return (<div className="nav__nav-container">
+                <NavLink className="nav__link" to="/showNotes">Мои заметки</NavLink>
+                <NavLink className="nav__link" to="/main">На Главную</NavLink>
+                <button className="nav__button" onClick={this.signout}>Выйти</button>
             </div>)
         }
         return null

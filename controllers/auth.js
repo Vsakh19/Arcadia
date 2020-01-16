@@ -6,6 +6,7 @@ const usersDB = new Database({filename: './data/users'});
 usersDB.loadDatabase();
 
 module.exports.loginUser = (req, res)=>{
+    const {username, password} = req.body;
     usersDB.find({"username": username}, (err, data)=>{
         if(!err){
             bcrypt.compare(password, data[0].password, (err, result)=>{

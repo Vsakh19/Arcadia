@@ -51,7 +51,7 @@ class Login extends Component{
                 this.logHandler(false);
                 return (<h2 className="onError">{err}</h2> )
             });
-        this.props.history.push("/");
+        this.props.history.push("/main");
     }
 
     render() {
@@ -63,7 +63,6 @@ class Login extends Component{
                     <input type="password" name="password" placeholder="Password" onChange={this.passwordChange} required/>
                     <button type="submit" name="submit" onClick={this.login}>Войти</button>
                 </form>
-                <NavLink to="/">На Главную</NavLink>
             </div>
         )
     }

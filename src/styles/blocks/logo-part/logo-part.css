@@ -1,0 +1,8 @@
+@import "./__logo/logo-part__logo.css";
+@import "./__title/logo-part__title.css";
+
+.logo-part{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}

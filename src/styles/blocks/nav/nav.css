@@ -1,0 +1,10 @@
+@import "./__link/nav__link.css";
+@import "./__nav-container/nav__nav-container.css";
+@import "./__button/nav__button.css";
+
+.nav{
+    width: 25vw;
+    display: flex;
+    align-content: space-between;
+    justify-content: flex-start;
+}

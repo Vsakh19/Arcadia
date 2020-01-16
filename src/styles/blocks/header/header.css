@@ -1,0 +1,11 @@
+@import "./__user/header__user.css";
+
+.header{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0 20px 10vw ;
+    box-shadow: 0 5px 35px 5px lightgray;
+}

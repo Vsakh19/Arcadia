@@ -77,16 +77,14 @@ class Notes extends Component{
     render() {
         const {error, isLoaded, items} = this.state;
         if(error){
-            return (<div>
+            return (
                 <h2 className="onError">{error}</h2>
-                <NavLink to="/">На Главную</NavLink>
-                </div>)
+            )
         }
         else if(!isLoaded){
-            return (<div>
+            return (
                 <h2>Загрузка...</h2>
-                <NavLink to="/">На Главную</NavLink>
-            </div>)
+            )
         }
         if(items.length>0){
             return (
@@ -96,13 +94,12 @@ class Notes extends Component{
                            return  (<div key={item._id}>
                                <p>{item.author}</p>
                                <p>{item.text}</p>
-                               <p>{item.reminder}</p>
+                               <p>{(new Date(item.reminder.toString())).toString()}</p>
                                <button onClick={this.deleteHandler} name={item._id}>Удалить</button>
                             </div>)
                         })
                     }
                     <NavLink to="/addNote">Добавить заметку</NavLink>
-                    <NavLink to="/">На Главную</NavLink>
                 </div>
         )}
         else {
@@ -110,7 +107,6 @@ class Notes extends Component{
                 <div>
                     <h2 className="onError">У вас пока нет заметок</h2>
                     <NavLink to="/addNote">Добавить заметку</NavLink>
-                    <NavLink to="/">На Главную</NavLink>
                 </div>)
         }
     }

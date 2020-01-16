@@ -65,7 +65,6 @@ class Register extends Component{
                     <input type="password" name="password" placeholder="Password" onChange={this.passwordChange} required/>
                     <button type="submit" name="submit" onClick={this.reg}>Сохранить</button>
                 </form>
-                <NavLink to="/">На Главную</NavLink>
             </div>
         )
     }

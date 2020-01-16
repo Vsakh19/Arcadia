@@ -4,6 +4,7 @@ const notesDB = new Database({filename: './data/notes'});
 notesDB.loadDatabase();
 
 module.exports.getNotes = (req, res)=>{
+    console.log();
     const {user} = req;
     console.log(user);
     notesDB.find({"author": user.username}, (err, data)=>{
@@ -18,6 +19,7 @@ module.exports.getNotes = (req, res)=>{
 };
 
 module.exports.newNote = (req, res)=>{
+    console.log();
     const {author, text, date} = req.body;
     if (author!==null && text!==null && date!==null) {
         notesDB.insert({author: author, text: text, reminder: date});
@@ -37,7 +39,7 @@ module.exports.deleteNote = (req, res)=>{
     notesDB.find({_id: id}, (err, data)=>{
         if (req.user.username === data[0].author){
             notesDB.remove(data[0]);
-            res.status(200).send();
+            res.status(200).send({});
         }
     })
 };

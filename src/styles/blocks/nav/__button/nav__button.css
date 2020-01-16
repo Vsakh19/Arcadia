@@ -1,0 +1,16 @@
+.nav__button{
+    transition-duration: 0.3s;
+    border: 1px solid #feefc3;
+    background-color: white;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    font-family: "Open Sans", sans-serif;
+    color: #202124;
+    padding: 15px 0 15px 100px;
+    text-align: left;
+}
+
+.nav__button:hover{
+    background-color: #feefc3;
+
+}

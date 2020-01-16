@@ -1,0 +1,16 @@
+.nav__link{
+    width: 280px;
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    color: #202124;
+    padding: 15px 0 15px 100px;
+    margin-bottom: 35px;
+}
+
+.nav__link.active {
+    border: 1px solid #feefc3;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    background-color: #feefc3;
+}

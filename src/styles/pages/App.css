@@ -1,0 +1,9 @@
+@import '../../vendor/fonts.css';
+@import '../../vendor/normalize.css';
+@import "../blocks/footer/footer.css";
+@import "../blocks/dynamic-content/dynamic-content.css";
+@import "../blocks/footer-info/footer-info.css";
+@import "../blocks/header/header.css";
+@import "../blocks/main/main.css";
+@import "../blocks/nav/nav.css";
+@import "../blocks/logo-part/logo-part.css";
