@@ -1,6 +1,7 @@
 @import "./onError/dynamic-content__onError.css";
 
 .dynamic-content{
+    position: relative;
     width: 75vw;
     display: flex;
     flex-direction: column;

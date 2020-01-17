@@ -47,11 +47,13 @@ class Login extends Component{
                 this.logHandler(true);
                 this.userHandler(this.state.username);
             })
+            .then(()=>{
+                this.props.history.push("/showNotes");
+            })
             .catch(err=>{
                 this.logHandler(false);
                 return (<h2 className="dynamic-content__onError">{err}</h2> )
             });
-        this.props.history.push("/showNotes");
     }
 
     render() {
@@ -59,8 +61,10 @@ class Login extends Component{
             <div className="form-container">
                 <form className="form" name="login" >
                     <label className="form__label">Авторизация</label>
+                    <div className="form__input-container">
                     <input className="form__input" type="text" name="name" placeholder="Username" onChange={this.nameChange} required/>
                     <input className="form__input" type="password" name="password" placeholder="Password" onChange={this.passwordChange} required/>
+                    </div>
                     <button className="form__button" type="submit" name="submit" onClick={this.login}>Войти</button>
                 </form>
             </div>

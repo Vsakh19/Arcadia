@@ -97,7 +97,8 @@ class NewNote extends Component{
             return (<div className="form-container">
                 <form className="form" name="newNote">
                     <label className="form__label">Новая заметка</label>
-                    <input className="form__input" maxLength="100" type="text" name="text" placeholder="Text" onChange={this.textChange} required/>
+                    <div className="form__input-container">
+                    <textarea className="form__input form__textarea" maxLength="100" type="text" name="text" placeholder="Текст заметки" onChange={this.textChange} required/>
                     <DatePicker className="form__input" selected={this.state.date}
                                 onChange={date => this.dateChange(date)}
                                 showTimeSelect
@@ -105,6 +106,7 @@ class NewNote extends Component{
                                 timeIntervals={30}
                                 timeCaption="time"
                                 dateFormat="MMMM d, yyyy h:mm aa"/>
+                    </div>
                     <button className="form__button" type="submit" name="submit" onClick={this.sendNote}>Сохранить</button>
                 </form>
             </div>)

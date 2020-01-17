@@ -1,3 +1,14 @@
 .form__button{
-
+    transition: 0.2s;
+    background-color: unset;
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;
+    color: #202124;
+    margin-top: 40px;
+    text-align: center;
+    width: 100px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 10px 0;
+    cursor: pointer;
 }

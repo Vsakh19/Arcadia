@@ -48,12 +48,11 @@ class Register extends Component{
                 localStorage.setItem('user', this.state.username);
                 this.logHandler(true);
                 this.userHandler(this.state.username);
-                history.push("/");
+                this.props.history.push("/main");
             })
             .catch(err=>{
                 return (<h2 className="dynamic-content__onError">{err}</h2> )
             });
-        this.props.history.push("/");
     }
 
     render() {
@@ -61,8 +60,10 @@ class Register extends Component{
             <div className="form-container">
                 <form className="form" name="reg" >
                     <label className="form__label">Зарегистрироваться</label>
-                    <input className="form__input" maxLength="30" type="text" name="name" placeholder="Username" onChange={this.nameChange} required/>
-                    <input className="form__input" type="password" name="password" placeholder="Password" onChange={this.passwordChange} required/>
+                    <div className="form__input-container">
+                    <input className="form__input" minLength="2" maxLength="30" type="text" name="name" placeholder="Имя пользователя" onChange={this.nameChange} required/>
+                    <input className="form__input" minLength="6" maxLength="30" type="password" name="password" placeholder="Пароль" onChange={this.passwordChange} required/>
+                    </div>
                     <button className="form__button" type="submit" name="submit" onClick={this.reg}>Сохранить</button>
                 </form>
             </div>

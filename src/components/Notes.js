@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {NavLink} from "react-router-dom";
+import img from "../images/logo.png";
 
 class Notes extends Component{
     constructor(props) {
@@ -68,6 +69,7 @@ class Notes extends Component{
                         })
                     }
                 }
+                const info = new Notification("Заметка успешно удалена!");
             })
             .catch((err)=>{
                 alert("Произошла ошибка: "+err.message);
@@ -106,8 +108,8 @@ class Notes extends Component{
         else {
             return (
                 <div>
-                    <h2 className="dynamic-content__onError">У вас пока нет заметок</h2>
-                    <NavLink to="/addNote">Добавить заметку</NavLink>
+                    <h2>У вас пока нет заметок</h2>
+                    <NavLink className="notes__link" to="/addNote">Добавить заметку</NavLink>
                 </div>)
         }
     }
