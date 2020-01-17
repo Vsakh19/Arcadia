@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {withRouter} from "react-router";
-import {NavLink} from "react-router-dom";
 
 class Register extends Component{
     constructor(props) {
@@ -32,27 +31,32 @@ class Register extends Component{
 
     reg(event){
         event.preventDefault();
-        fetch("http://localhost:3000/auth/addServerUser",{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password
+        if(this.state.username.length>=2 && this.state.password.length>=6) {
+            fetch("http://localhost:3000/auth/addServerUser", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: this.state.username,
+                    password: this.state.password
+                })
             })
-        })
-            .then(res=>res.json())
-            .then((data)=>{
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', this.state.username);
-                this.logHandler(true);
-                this.userHandler(this.state.username);
-                this.props.history.push("/main");
-            })
-            .catch(err=>{
-                return (<h2 className="dynamic-content__onError">{err}</h2> )
-            });
+                .then(res => res.json())
+                .then((data) => {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', this.state.username);
+                    this.logHandler(true);
+                    this.userHandler(this.state.username);
+                    this.props.history.push("/main");
+                })
+                .catch(err => {
+                    return (<h2 className="dynamic-content__onError">{err}</h2>)
+                });
+        }
+        else {
+            alert("Имя пользователя и пароль должны быть не короче 2 и 6 символов соответственно.");
+        }
     }
 
     render() {
@@ -61,10 +65,10 @@ class Register extends Component{
                 <form className="form" name="reg" >
                     <label className="form__label">Зарегистрироваться</label>
                     <div className="form__input-container">
-                    <input className="form__input" minLength="2" maxLength="30" type="text" name="name" placeholder="Имя пользователя" onChange={this.nameChange} required/>
-                    <input className="form__input" minLength="6" maxLength="30" type="password" name="password" placeholder="Пароль" onChange={this.passwordChange} required/>
+                        <input className="form__input" minLength="2" maxLength="30" type="text" name="name" placeholder="Имя пользователя" onChange={this.nameChange} required/>
+                        <input className="form__input" minLength="6" maxLength="30" type="password" name="password" placeholder="Пароль" onChange={this.passwordChange} required/>
                     </div>
-                    <button className="form__button" type="submit" name="submit" onClick={this.reg}>Сохранить</button>
+                    <input value="Сохранить" className="form__button" name="submit" onClick={this.reg}/>
                 </form>
             </div>
         )
