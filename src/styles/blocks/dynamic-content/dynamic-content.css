@@ -1,3 +1,5 @@
+@import "./onError/dynamic-content__onError.css";
+
 .dynamic-content{
     width: 75vw;
     display: flex;

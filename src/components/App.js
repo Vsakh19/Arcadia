@@ -46,7 +46,7 @@ class App extends Component {
                 <header className="header">
                     <div className="logo-part">
                         <img alt="logo image" className="logo-part__logo" src={logo}/>
-                        <h1 className="logo-part__title">Keep</h1>
+                        <h1 className="logo-part__title">Notify</h1>
                     </div>
                     <p className="header__user">{this.state.user}</p>
                 </header>

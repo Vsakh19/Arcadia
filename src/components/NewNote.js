@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {withRouter} from "react-router";
-import {NavLink} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {scheduleJob} from "node-schedule";
@@ -71,10 +70,8 @@ class NewNote extends Component{
                         });
                     }
                     else if (Notification.permission !== 'denied') {
-                        console.log("GRD");
                         Notification.requestPermission()
                             .then((res)=>{
-                                console.log("GRR");
                                 if(res === "granted"){
                                     scheduleJob(this.state.date, ()=>{
                                         const info = new Notification("Не забудь!", {body: this.state.text, icon: img});
@@ -97,27 +94,27 @@ class NewNote extends Component{
 
     render() {
         if(this.state.success === null) {
-            return (<div>
-                <form className="form newNote" name="newNote">
-                    <label className="form-label">Добавить заметку</label>
-                    <input type="text" name="text" placeholder="Text" onChange={this.textChange} required/>
-                    <DatePicker selected={this.state.date}
+            return (<div className="form-container">
+                <form className="form" name="newNote">
+                    <label className="form__label">Новая заметка</label>
+                    <input className="form__input" maxLength="100" type="text" name="text" placeholder="Text" onChange={this.textChange} required/>
+                    <DatePicker className="form__input" selected={this.state.date}
                                 onChange={date => this.dateChange(date)}
                                 showTimeSelect
                                 timeFormat="HH:mm"
                                 timeIntervals={30}
                                 timeCaption="time"
                                 dateFormat="MMMM d, yyyy h:mm aa"/>
-                    <button type="submit" name="submit" onClick={this.sendNote}>Сохранить</button>
+                    <button className="form__button" type="submit" name="submit" onClick={this.sendNote}>Сохранить</button>
                 </form>
             </div>)
         }
         else if(this.state.success === true){
-            this.props.history.push("/main");
+            this.props.history.push("/showNotes");
             return null
         }
         else {
-            return <h2 className="onError">Ошибка бд</h2>
+            return <h2 className="dynamic-content__onError">Ошибка бд</h2>
         }
     }
 }

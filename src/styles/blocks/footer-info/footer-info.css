@@ -1,0 +1,8 @@
+@import "./__link/footer-info__link.css";
+@import "./__line/footer-info__line.css";
+
+.footer-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

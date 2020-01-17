@@ -78,7 +78,7 @@ class Notes extends Component{
         const {error, isLoaded, items} = this.state;
         if(error){
             return (
-                <h2 className="onError">{error}</h2>
+                <h2 className="dynamic-content__onError">{error}</h2>
             )
         }
         else if(!isLoaded){
@@ -88,24 +88,25 @@ class Notes extends Component{
         }
         if(items.length>0){
             return (
-                <div>
+                <div className="notes">
+                    <div className="note-grid">
                     {
                         items.map(item=>{
-                           return  (<div key={item._id}>
-                               <p>{item.author}</p>
-                               <p>{item.text}</p>
-                               <p>{(new Date(item.reminder.toString())).toString()}</p>
-                               <button onClick={this.deleteHandler} name={item._id}>Удалить</button>
+                           return  (<div key={item._id} className="note-card">
+                               <p className="note-card__line">{item.text}</p>
+                               <p className="note-card__line">{(new Date(item.reminder.toString())).toString().slice(4, new Date(item.reminder.toString()).toString().indexOf("GMT")-1)}</p>
+                               <button className="note-card__button" onClick={this.deleteHandler} name={item._id}>X</button>
                             </div>)
                         })
                     }
-                    <NavLink to="/addNote">Добавить заметку</NavLink>
+                    </div>
+                    <NavLink className="notes__link" to="/addNote">Добавить заметку</NavLink>
                 </div>
         )}
         else {
             return (
                 <div>
-                    <h2 className="onError">У вас пока нет заметок</h2>
+                    <h2 className="dynamic-content__onError">У вас пока нет заметок</h2>
                     <NavLink to="/addNote">Добавить заметку</NavLink>
                 </div>)
         }

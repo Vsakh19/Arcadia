@@ -1,0 +1,8 @@
+.dynamic-content__onError{
+    font-family: "Open Sans", sans-serif;
+    font-size: 32px;
+}
+
+.dynamic-content__onError:hover{
+    color: red;
+}

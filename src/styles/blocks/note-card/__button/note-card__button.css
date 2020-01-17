@@ -1,0 +1,14 @@
+.note-card__button{
+    font-family: Roboto, sans-serif;
+    border: none;
+    background: transparent;
+    position: absolute;
+    top: -2px;
+    left: -4px;
+    cursor: pointer;
+    display: none;
+}
+
+.note-card:hover .note-card__button{
+    display: block;
+}

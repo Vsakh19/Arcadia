@@ -51,19 +51,19 @@ class Register extends Component{
                 history.push("/");
             })
             .catch(err=>{
-                return (<h2 className="onError">{err}</h2> )
+                return (<h2 className="dynamic-content__onError">{err}</h2> )
             });
         this.props.history.push("/");
     }
 
     render() {
         return (
-            <div>
-                <form className="form reg" name="reg" >
-                    <label className="form-label">Зарегистрироваться</label>
-                    <input type="text" name="name" placeholder="Username" onChange={this.nameChange} required/>
-                    <input type="password" name="password" placeholder="Password" onChange={this.passwordChange} required/>
-                    <button type="submit" name="submit" onClick={this.reg}>Сохранить</button>
+            <div className="form-container">
+                <form className="form" name="reg" >
+                    <label className="form__label">Зарегистрироваться</label>
+                    <input className="form__input" maxLength="30" type="text" name="name" placeholder="Username" onChange={this.nameChange} required/>
+                    <input className="form__input" type="password" name="password" placeholder="Password" onChange={this.passwordChange} required/>
+                    <button className="form__button" type="submit" name="submit" onClick={this.reg}>Сохранить</button>
                 </form>
             </div>
         )

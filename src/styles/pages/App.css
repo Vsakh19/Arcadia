@@ -7,3 +7,8 @@
 @import "../blocks/main/main.css";
 @import "../blocks/nav/nav.css";
 @import "../blocks/logo-part/logo-part.css";
+@import "../blocks/note-card/note-card.css";
+@import "../blocks/notes/notes.css";
+@import "../blocks/note-grid/note-grid.css";
+@import "../blocks/form-container/form-container.css";
+@import "../blocks/form/form.css";

@@ -49,19 +49,19 @@ class Login extends Component{
             })
             .catch(err=>{
                 this.logHandler(false);
-                return (<h2 className="onError">{err}</h2> )
+                return (<h2 className="dynamic-content__onError">{err}</h2> )
             });
-        this.props.history.push("/main");
+        this.props.history.push("/showNotes");
     }
 
     render() {
         return (
-            <div>
-                <form className="form login" name="login" >
-                    <label className="form-label">Авторизация</label>
-                    <input type="text" name="name" placeholder="Username" onChange={this.nameChange} required/>
-                    <input type="password" name="password" placeholder="Password" onChange={this.passwordChange} required/>
-                    <button type="submit" name="submit" onClick={this.login}>Войти</button>
+            <div className="form-container">
+                <form className="form" name="login" >
+                    <label className="form__label">Авторизация</label>
+                    <input className="form__input" type="text" name="name" placeholder="Username" onChange={this.nameChange} required/>
+                    <input className="form__input" type="password" name="password" placeholder="Password" onChange={this.passwordChange} required/>
+                    <button className="form__button" type="submit" name="submit" onClick={this.login}>Войти</button>
                 </form>
             </div>
         )

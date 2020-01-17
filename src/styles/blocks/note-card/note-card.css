@@ -1,0 +1,21 @@
+@import "./__button/note-card__button.css";
+@import "./__line/note-card__line.css";
+
+.note-card{
+    transition-duration: 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    width: 200px;
+    min-height: 120px;
+    border: 1px solid transparent;
+    box-shadow: 0 0 1px 1px lightgrey;
+    border-radius: 8px;
+    overflow-x:hidden;
+    padding: 10px 0;
+}
+
+.note-card:hover{
+    box-shadow: 0 3px 3px 3px lightgrey;
+}

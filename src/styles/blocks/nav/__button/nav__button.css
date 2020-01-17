@@ -8,6 +8,7 @@
     color: #202124;
     padding: 15px 0 15px 100px;
     text-align: left;
+    cursor: pointer;
 }
 
 .nav__button:hover{
