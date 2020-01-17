@@ -42,13 +42,17 @@ class Login extends Component{
         })
             .then(res=>res.json())
             .then((data)=>{
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', this.state.username);
-                this.logHandler(true);
-                this.userHandler(this.state.username);
-            })
-            .then(()=>{
-                this.props.history.push("/showNotes");
+                if (!data.message) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', this.state.username);
+                    this.logHandler(true);
+                    this.userHandler(this.state.username);
+                    this.props.history.push("/showNotes");
+                }
+                else {
+                    alert("Ошибка авторизации");
+                    this.props.history.push("/main");
+                }
             })
             .catch(err=>{
                 this.logHandler(false);
