@@ -44,14 +44,19 @@ class Register extends Component{
             })
                 .then(res => res.json())
                 .then((data) => {
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', this.state.username);
-                    this.logHandler(true);
-                    this.userHandler(this.state.username);
-                    this.props.history.push("/main");
+                    if(!data.message){
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', this.state.username);
+                        this.logHandler(true);
+                        this.userHandler(this.state.username);
+                        this.props.history.push("/main");
+                    }
+                    else {
+                        alert(data.message)
+                    }
                 })
                 .catch(err => {
-                    return (<h2 className="dynamic-content__onError">{err}</h2>)
+                    alert(err)
                 });
         }
         else {
