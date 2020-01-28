@@ -1,19 +1,15 @@
-import React, { Component } from "react";
+import React, {useState, useEffect} from "react";
 import {NavLink} from "react-router-dom";
-import img from "../images/logo.png";
+import {withRouter} from "react-router";
 
-class Notes extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            items: []
-        };
-        this.deleteHandler = this.deleteHandler.bind(this);
-    }
 
-    componentDidMount() {
+function Notes(props){
+    const [error, setError] = useState(null);
+    const [isLoaded, setLoaded] = useState(false);
+    const [items, setItems] = useState([]);
+
+
+    useEffect(()=>{
         fetch("http://localhost:3000/notes/getServerNotes", {
             method: 'GET',
             headers:{
@@ -27,26 +23,20 @@ class Notes extends Component{
                 if(data.message){
                     Promise.reject(new Error(data.message))
                         .catch(err=>{
-                            this.setState({
-                                isLoaded: true,
-                                error: err
-                            });
+                            setLoaded(true);
+                            setError(err);
                     })
                 }
-                this.setState({
-                    isLoaded: true,
-                    items: data
-                });
+                setLoaded(true);
+                setItems(data);
             })
             .catch(err=>{
-                this.setState({
-                    isLoaded: true,
-                    error: err.message
-                });
+                setLoaded(true);
+                setError(err.message);
             })
-    }
+    }, []);
 
-    deleteHandler(event){
+    function deleteHandler(event){
         const note = event.target.name;
         fetch("http://localhost:3000/notes/deleteServerNotes",{
             method: 'DELETE',
@@ -59,60 +49,54 @@ class Notes extends Component{
             })
         })
             .then(()=>{
-                for (let i=0; i<this.state.items.length; i+=1){
-                    if (this.state.items[i]._id === note){
-                        this.state.items.splice(i,1);
-                        this.setState({
-                            error: this.state.error,
-                            isLoaded: this.state.isLoaded,
-                            items: this.state.items
-                        })
+                for (let i=0; i<items.length; i+=1){
+                    if (items[i]._id === note){
+                        items.splice(i,1);
+                        setItems(items);
                     }
                 }
                 const info = new Notification("Заметка успешно удалена!");
+                props.history.push("/showNotes");
             })
             .catch((err)=>{
                 alert("Произошла ошибка: "+err.message);
             });
     }
 
-    render() {
-        const {error, isLoaded, items} = this.state;
-        if(error){
-            return (
-                <h2 className="dynamic-content__onError">{error}</h2>
-            )
-        }
-        else if(!isLoaded){
-            return (
-                <h2>Загрузка...</h2>
-            )
-        }
-        if(items.length>0){
-            return (
-                <div className="notes">
-                    <div className="note-grid">
-                    {
-                        items.map(item=>{
-                           return  (<div key={item._id} className="note-card">
-                               <p className="note-card__line">{item.text}</p>
-                               <p className="note-card__line">{(new Date(item.reminder.toString())).toString().slice(4, new Date(item.reminder.toString()).toString().indexOf("GMT")-1)}</p>
-                               <button className="note-card__button" onClick={this.deleteHandler} name={item._id}>X</button>
-                            </div>)
-                        })
-                    }
-                    </div>
-                    <NavLink className="notes__link" to="/addNote">Добавить заметку</NavLink>
+    if(error){
+        return (
+            <h2 className="dynamic-content__onError">{error}</h2>
+        )
+    }
+    else if(!isLoaded){
+        return (
+            <h2>Загрузка...</h2>
+        )
+    }
+    if(items.length>0){
+        return (
+            <div className="notes">
+                <div className="note-grid">
+                {
+                    items.map(item=>{
+                       return  (<div key={item._id} className="note-card">
+                           <p className="note-card__line">{item.text}</p>
+                           <p className="note-card__line">{(new Date(item.reminder.toString())).toString().slice(4, new Date(item.reminder.toString()).toString().indexOf("GMT")-1)}</p>
+                           <button className="note-card__button" onClick={deleteHandler} name={item._id}>X</button>
+                        </div>)
+                    })
+                }
                 </div>
-        )}
-        else {
-            return (
-                <div>
-                    <h2>У вас пока нет заметок</h2>
-                    <NavLink className="notes__link" to="/addNote">Добавить заметку</NavLink>
-                </div>)
-        }
+                <NavLink className="notes__link" to="/addNote">Добавить заметку</NavLink>
+            </div>
+    )}
+    else {
+        return (
+            <div className="notes">
+                <h2>У вас пока нет заметок</h2>
+                <NavLink className="notes__link" to="/addNote">Добавить заметку</NavLink>
+            </div>)
     }
 }
 
-export default Notes;
+export default withRouter(Notes);
