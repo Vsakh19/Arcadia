@@ -1,41 +1,21 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import {withRouter} from "react-router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {scheduleJob} from "node-schedule";
 import img from "../images/logo.png"
 
-class NewNote extends Component{
-    constructor(props) {
-        super(props);
-        this.state={
-            text: null,
-            date: new Date(),
-            success: null
-        };
-        this.textChange = this.textChange.bind(this);
-        this.dateChange = this.dateChange.bind(this);
-        this.sendNote = this.sendNote.bind(this);
+function NewNote(props){
+    const [text, setText] = useState(null);
+    const [date, setDate] = useState(new Date());
+    const [success, setSuccess] = useState(null);
 
+    function textChange(event){
+        setText(event.target.value);
     }
 
-    textChange(event){
-        this.setState({
-            text: event.target.value,
-            date: this.state.date,
-            success: this.state.success
-        });
-    }
 
-    dateChange(val){
-        this.setState({
-            text: this.state.text,
-            date: val,
-            success: this.state.success
-        })
-    }
-
-    sendNote(event){
+    function sendNote(event){
         event.preventDefault();
         fetch("http://localhost:3000/notes/addServerNotes", {
             method: 'POST',
@@ -44,9 +24,9 @@ class NewNote extends Component{
                 authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body:JSON.stringify({
-                author: this.props.user,
-                text: this.state.text,
-                date: this.state.date
+                author: props.user,
+                text: text,
+                date: date
             })
         })
             .then(res=> {
@@ -54,19 +34,15 @@ class NewNote extends Component{
             })
             .then(data=>{
                 if(data.message){
-                    this.setState({
-                        text: this.state.text,
-                        date: this.state.date,
-                        success: false
-                    })
+                    setSuccess(false);
                 }
                 else {
                     if (!("Notification" in window)) {
                         alert('Ваш браузер не поддерживает HTML Notifications, его необходимо обновить.');
                     }
                     else if (Notification.permission === "granted") {
-                        const notif = scheduleJob(this.state.date, ()=>{
-                            const info = new Notification("Не забудь!", {body: this.state.text});
+                        const notif = scheduleJob(date, ()=>{
+                            const info = new Notification("Не забудь!", {body: text});
                         });
                     }
                     else if (Notification.permission !== 'denied') {
@@ -74,50 +50,44 @@ class NewNote extends Component{
                             .then((res)=>{
                                 if(res === "granted"){
                                     scheduleJob(this.state.date, ()=>{
-                                        const info = new Notification("Не забудь!", {body: this.state.text, icon: img});
+                                        const info = new Notification("Не забудь!", {body: text, icon: img});
                                     });
                                 }
                             })
                     }
 
                 }
-                this.setState({
-                    text: this.state.text,
-                    date: this.state.date,
-                    success: true
-                });
+                setSuccess(true);
             })
             .catch(err=>{
                 console.log(err);
             })
     }
 
-    render() {
-        if(this.state.success === null) {
-            return (<div className="form-container">
-                <form className="form" name="newNote">
-                    <label className="form__label">Новая заметка</label>
-                    <div className="form__input-container">
-                    <textarea className="form__input form__textarea" maxLength="100" type="text" name="text" placeholder="Текст заметки" onChange={this.textChange} required/>
-                    <DatePicker className="form__input" selected={this.state.date}
-                                onChange={date => this.dateChange(date)}
-                                showTimeSelect
-                                timeFormat="HH:mm"
-                                timeIntervals={30}
-                                timeCaption="time"
-                                dateFormat="MMMM d, yyyy h:mm aa"/>
-                    </div>
-                    <button className="form__button" type="submit" name="submit" onClick={this.sendNote}>Сохранить</button>
-                </form>
-            </div>)
-        }
-        else if(this.state.success === true){
-            this.props.history.push("/showNotes");
-            return null
-        }
-        else {
-            return <h2 className="dynamic-content__onError">Ошибка бд</h2>
-        }
+    if(success === null) {
+        return (<div className="form-container">
+            <form className="form" name="newNote">
+                <label className="form__label">Новая заметка</label>
+                <div className="form__input-container">
+                <textarea className="form__input form__textarea" maxLength="100" name="text" placeholder="Текст заметки" onChange={textChange} required/>
+                <DatePicker className="form__input" selected={date}
+                            onChange={date => setDate(date)}
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            timeIntervals={30}
+                            timeCaption="time"
+                            dateFormat="MMMM d, yyyy h:mm aa"/>
+                </div>
+                <button className="form__button" type="submit" name="submit" onClick={sendNote}>Сохранить</button>
+            </form>
+        </div>)
+    }
+    else if(success === true){
+        props.history.push("/showNotes");
+        return null
+    }
+    else {
+        return <h2 className="dynamic-content__onError">Ошибка бд</h2>
     }
 }
 
