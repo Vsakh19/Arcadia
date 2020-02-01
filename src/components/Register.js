@@ -1,55 +1,48 @@
-import React, { Component } from "react";
+import React, {useState} from "react";
 import {withRouter} from "react-router";
 
-class Register extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {username: '', password: ''};
+function Register(props){
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-        this.nameChange = this.nameChange.bind(this);
-        this.passwordChange = this.passwordChange.bind(this);
-        this.reg = this.reg.bind(this);
-        this.logHandler = this.logHandler.bind(this);
-        this.userHandler = this.userHandler.bind(this);
+
+    function userHandler(val){
+        props.changeUser(val);
     }
 
-    logHandler(val){
-        this.props.changeState(val);
+    function logHandler(val){
+        props.changeState(val);
     }
 
-    userHandler(val){
-        this.props.changeUser(val);
+    function nameChange(event){
+        setUsername(event.target.value)
     }
 
-    nameChange(event){
-        this.setState({username: event.target.value, password: this.state.password})
+    function passwordChange(event){
+        setPassword(event.target.value)
     }
 
-    passwordChange(event){
-        this.setState({username: this.state.username, password: event.target.value})
-    }
-
-    reg(event){
+    function reg(event){
         event.preventDefault();
-        if(this.state.username.length>=2 && this.state.password.length>=6) {
+        if(username.length>=2 && password.length>=6) {
             fetch("http://localhost:3000/auth/addServerUser", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: this.state.username,
-                    password: this.state.password
+                    username: username,
+                    password: password
                 })
             })
                 .then(res => res.json())
                 .then((data) => {
                     if(!data.message){
                         localStorage.setItem('token', data.token);
-                        localStorage.setItem('user', this.state.username);
-                        this.logHandler(true);
-                        this.userHandler(this.state.username);
-                        this.props.history.push("/main");
+                        localStorage.setItem('user', username);
+                        logHandler(true);
+                        userHandler(username);
+                        props.history.push("/main");
                     }
                     else {
                         alert(data.message)
@@ -64,20 +57,19 @@ class Register extends Component{
         }
     }
 
-    render() {
-        return (
-            <div className="form-container">
-                <form className="form" name="reg" >
-                    <label className="form__label">Зарегистрироваться</label>
-                    <div className="form__input-container">
-                        <input className="form__input" minLength="2" maxLength="30" type="text" name="name" placeholder="Имя пользователя" onChange={this.nameChange} required/>
-                        <input className="form__input" minLength="6" maxLength="30" type="password" name="password" placeholder="Пароль" onChange={this.passwordChange} required/>
-                    </div>
-                    <input value="Сохранить" className="form__button" name="submit" onClick={this.reg}/>
-                </form>
-            </div>
-        )
-    }
+
+    return (
+        <div className="form-container">
+            <form className="form" name="reg" >
+                <label className="form__label">Зарегистрироваться</label>
+                <div className="form__input-container">
+                    <input className="form__input" minLength="2" maxLength="30" type="text" name="name" placeholder="Имя пользователя" onChange={nameChange} required/>
+                    <input className="form__input" minLength="6" maxLength="30" type="password" name="password" placeholder="Пароль" onChange={passwordChange} required/>
+                </div>
+                <input value="Сохранить" className="form__button" name="submit" onClick={reg}/>
+            </form>
+        </div>
+    )
 }
 
 export default withRouter(Register);

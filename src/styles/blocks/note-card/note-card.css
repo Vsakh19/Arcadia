@@ -17,5 +17,5 @@
 }
 
 .note-card:hover{
-    box-shadow: 0 3px 3px 3px lightgrey;
+    box-shadow: 0 0 1px 3px lightgrey;
 }
