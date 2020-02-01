@@ -6,4 +6,4 @@
 >Запуск:
 >1. "npm install"  
 >2. "npm run start"  
-http://notifymethings.tk
+https://notifymethings.tk

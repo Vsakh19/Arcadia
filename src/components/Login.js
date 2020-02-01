@@ -24,7 +24,7 @@ function Login(props){
 
     function login(event){
         event.preventDefault();
-        fetch("http://notifymethings.tk/auth/loginServerUser",{
+        fetch("https://notifymethings.tk/auth/loginServerUser",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
