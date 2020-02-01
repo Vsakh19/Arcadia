@@ -25,7 +25,7 @@ function Register(props){
     function reg(event){
         event.preventDefault();
         if(username.length>=2 && password.length>=6) {
-            fetch("http://localhost:3000/auth/addServerUser", {
+            fetch("http://notifymethings.tk/auth/addServerUser", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

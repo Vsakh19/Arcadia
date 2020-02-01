@@ -10,7 +10,7 @@ function Notes(props){
 
 
     useEffect(()=>{
-        fetch("http://localhost:3000/notes/getServerNotes", {
+        fetch("http://notifymethings.tk/notes/getServerNotes", {
             method: 'GET',
             headers:{
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -38,7 +38,7 @@ function Notes(props){
 
     function deleteHandler(event){
         const note = event.target.name;
-        fetch("http://localhost:3000/notes/deleteServerNotes",{
+        fetch("http://notifymethings.tk/notes/deleteServerNotes",{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

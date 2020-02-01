@@ -18,7 +18,7 @@ function NewNote(props){
 
     function sendNote(event){
         event.preventDefault();
-        fetch("http://localhost:3000/notes/addServerNotes", {
+        fetch("http://notifymethings.tk/notes/addServerNotes", {
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json',

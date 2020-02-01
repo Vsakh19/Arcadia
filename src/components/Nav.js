@@ -9,7 +9,7 @@ function Nav(props){
     }
 
     useEffect(()=>{
-        fetch("http://localhost:3000/notes/getServerNotes", {
+        fetch("http://notifymethings.tk/notes/getServerNotes", {
             method: 'GET',
             headers:{
                 authorization: `Bearer ${localStorage.getItem('token')}`
