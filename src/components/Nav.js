@@ -1,18 +1,14 @@
 import {NavLink} from "react-router-dom";
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import {withRouter} from "react-router";
 
-class Nav extends Component{
-    constructor(props) {
-        super(props);
-        this.signout = this.signout.bind(this);
+function Nav(props){
+
+    function changelogHandler(val){
+        props.changeState(val);
     }
 
-    changelogHandler(val){
-        this.props.changeState(val);
-    }
-
-    componentDidMount() {
+    useEffect(()=>{
         fetch("http://localhost:3000/notes/getServerNotes", {
             method: 'GET',
             headers:{
@@ -21,39 +17,37 @@ class Nav extends Component{
             .then(data=>data.json())
             .then(res=>{
                 if (res.message){
-                    this.changelogHandler(false);
+                    changelogHandler(false);
                 }
                 else {
-                    this.changelogHandler(true);
+                    changelogHandler(true);
                 }
             });
-        this.props.history.push("/main");
-    }
+        props.history.push("/main");
+    }, []);
 
 
-    signout(){
+    function signout(){
         localStorage.removeItem("token");
-        this.changelogHandler(false);
-        this.props.history.push("/main");
+        changelogHandler(false);
+        props.history.push("/main");
     }
 
-    render() {
-        if (this.props.isLogged === false) {
-            return (<div className="nav__nav-container">
-                <NavLink className="nav__link" to="/login">Войти</NavLink>
-                <NavLink className="nav__link" to="/register" >Регистрация</NavLink>
-                <NavLink className="nav__link" to="/main">На Главную</NavLink>
-            </div>)
-        }
-        else if (this.props.isLogged === true){
-            return (<div className="nav__nav-container">
-                <NavLink className="nav__link" to="/showNotes">Мои заметки</NavLink>
-                <NavLink className="nav__link" to="/main">На Главную</NavLink>
-                <button className="nav__button" onClick={this.signout}>Выйти</button>
-            </div>)
-        }
-        return null
+    if (props.isLogged === false) {
+        return (<div className="nav__nav-container">
+            <NavLink className="nav__link" to="/login">Войти</NavLink>
+            <NavLink className="nav__link" to="/register" >Регистрация</NavLink>
+            <NavLink className="nav__link" to="/main">На Главную</NavLink>
+        </div>)
     }
+    else if (props.isLogged === true){
+        return (<div className="nav__nav-container">
+            <NavLink className="nav__link" to="/showNotes">Мои заметки</NavLink>
+            <NavLink className="nav__link" to="/main">На Главную</NavLink>
+            <button className="nav__button" onClick={signout}>Выйти</button>
+        </div>)
+    }
+    return null;
 }
 
 export default withRouter(Nav)

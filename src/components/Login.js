@@ -1,34 +1,28 @@
-import React, { Component } from "react";
+import React, {useState} from "react";
 import {withRouter} from "react-router-dom";
 
-class Login extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {username: '', password: ''};
+function Login(props){
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-        this.nameChange = this.nameChange.bind(this);
-        this.passwordChange = this.passwordChange.bind(this);
-        this.login = this.login.bind(this);
-        this.logHandler = this.logHandler.bind(this);
-        this.userHandler = this.userHandler.bind(this);
-    }
-    nameChange(event){
-        this.setState({username: event.target.value, password: this.state.password})
+
+    function nameChange(event){
+        setUsername(event.target.value)
     }
 
-    passwordChange(event){
-        this.setState({username: this.state.username, password: event.target.value})
+    function passwordChange(event){
+        setPassword(event.target.value)
     }
 
-    userHandler(val){
-        this.props.changeUser(val);
+    function userHandler(val){
+        props.changeUser(val);
     }
 
-    logHandler(val){
-        this.props.changeState(val);
+    function logHandler(val){
+        props.changeState(val);
     }
 
-    login(event){
+    function login(event){
         event.preventDefault();
         fetch("http://localhost:3000/auth/loginServerUser",{
             method: 'POST',
@@ -36,44 +30,42 @@ class Login extends Component{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password
+                username: username,
+                password: password
             })
         })
             .then(res=>res.json())
             .then((data)=>{
                 if (!data.message) {
                     localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', this.state.username);
-                    this.logHandler(true);
-                    this.userHandler(this.state.username);
-                    this.props.history.push("/showNotes");
+                    localStorage.setItem('user', username);
+                    logHandler(true);
+                    userHandler(username);
+                    props.history.push("/showNotes");
                 }
                 else {
                     alert("Ошибка авторизации");
-                    this.props.history.push("/main");
+                    props.history.push("/main");
                 }
             })
             .catch(err=>{
-                this.logHandler(false);
+                logHandler(false);
                 return (<h2 className="dynamic-content__onError">{err}</h2> )
             });
     }
 
-    render() {
-        return (
-            <div className="form-container">
-                <form className="form" name="login" >
-                    <label className="form__label">Авторизация</label>
-                    <div className="form__input-container">
-                    <input className="form__input" type="text" name="name" placeholder="Username" onChange={this.nameChange} required/>
-                    <input className="form__input" type="password" name="password" placeholder="Password" onChange={this.passwordChange} required/>
-                    </div>
-                    <button className="form__button" type="submit" name="submit" onClick={this.login}>Войти</button>
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div className="form-container">
+            <form className="form" name="login" >
+                <label className="form__label">Авторизация</label>
+                <div className="form__input-container">
+                    <input className="form__input" type="text" name="name" placeholder="Username" onChange={nameChange} required/>
+                    <input className="form__input" type="password" name="password" placeholder="Password" onChange={passwordChange} required/>
+                </div>
+                <button className="form__button" type="submit" name="submit" onClick={login}>Войти</button>
+            </form>
+        </div>
+    )
 }
 
 export default withRouter(Login);
