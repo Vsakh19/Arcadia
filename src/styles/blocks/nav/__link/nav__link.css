@@ -14,3 +14,9 @@
     border-top-right-radius: 25px;
     background-color: #feefc3;
 }
+
+@media screen and (max-width: 1000px){
+    .nav__link.active{
+        border-radius: 25px;
+    }
+}

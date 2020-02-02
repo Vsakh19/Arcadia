@@ -56,7 +56,7 @@ class App extends Component {
                     </nav>
                     <section className="dynamic-content">
                         <Route path = "/" component = {()=>null}/>
-                        <Route path = "/main" component = {()=>(<Iframe width="53%" height="473" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen/>)}/>
+                        <Route path = "/main" component = {()=>(<Iframe width="840" height="473" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen/>)}/>
                         <Route path = "/login" component = {()=>(<Login isLogged = {this.state.isLogged} changeState = {this.changeState} changeUser = {this.changeUser}/>)}/>
                         <Route path = "/register" component = {()=>(<Register changeState = {this.changeState} changeUser = {this.changeUser} isLogged = {this.state.isLogged}/>)}/>
                         <Route path = "/showNotes" component = {Notes}/>
