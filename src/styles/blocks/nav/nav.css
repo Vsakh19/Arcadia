@@ -8,3 +8,11 @@
     align-content: space-between;
     justify-content: flex-start;
 }
+
+@media screen and (max-width: 1000px){
+    .nav{
+        width: auto;
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+}

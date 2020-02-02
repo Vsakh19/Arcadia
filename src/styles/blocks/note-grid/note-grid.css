@@ -3,3 +3,15 @@
     grid: auto-flow / 1fr 1fr 1fr;;
     grid-gap: 40px;
 }
+
+@media screen and (max-width: 750px){
+    .note-grid{
+        grid: auto-flow / 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .note-grid{
+        grid-gap: 20px;
+    }
+}

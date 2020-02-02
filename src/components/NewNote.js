@@ -43,7 +43,7 @@ function NewNote(props){
                     }
                     else if (Notification.permission === "granted") {
                         const notif = scheduleJob(date, ()=>{
-                            const info = new Notification("Не забудь!", {body: text});
+                            const info = new Notification("Не забудь!", {body: text, icon: img});
                         });
                     }
                     else if (Notification.permission !== 'denied') {

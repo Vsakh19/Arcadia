@@ -12,3 +12,18 @@
 @import "../blocks/note-grid/note-grid.css";
 @import "../blocks/form-container/form-container.css";
 @import "../blocks/form/form.css";
+
+
+@media screen and (max-width: 500px){
+    iframe{
+        width: 560px;
+        height: 315px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    iframe{
+        width: 400px;
+        height: 225px;
+    }
+}
