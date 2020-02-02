@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {withRouter} from "react-router";
-import img from "../images/logo.png";
 
 
 function Notes(props){
@@ -56,8 +55,7 @@ function Notes(props){
                         setItems(items);
                     }
                 }
-                ServiceWorkerRegistration.showNotification("Заметка успешно удалена!");
-
+                const info = new Notification("Заметка успешно удалена!");
                 props.history.push("/showNotes");
             })
             .catch((err)=>{
