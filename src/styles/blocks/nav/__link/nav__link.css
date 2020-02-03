@@ -17,17 +17,11 @@
 
 @media screen and (max-width: 1000px){
     .nav__link{
+        padding: 15px 15px 15px 15px;
         width: auto;
         text-align: center;
     }
     .nav__link.active{
         border-radius: 25px;
-    }
-}
-
-@media screen and (max-width: 410px){
-    .nav__link{
-        text-align: center;
-        padding: 15px 15px 15px 15px;
     }
 }
