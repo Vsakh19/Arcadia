@@ -18,6 +18,7 @@
 @media screen and (max-width: 1000px){
     .nav__link.active{
         border-radius: 25px;
+        width: auto;
     }
 }
 
@@ -25,6 +26,5 @@
     .nav__link{
         text-align: center;
         padding: 15px 15px 15px 15px;
-        width: auto;
     }
 }

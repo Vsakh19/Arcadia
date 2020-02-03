@@ -9,3 +9,9 @@
         width: 320px;
     }
 }
+
+@media screen and (max-width: 380px){
+    .form-container{
+        width: 270px;
+    }
+}
