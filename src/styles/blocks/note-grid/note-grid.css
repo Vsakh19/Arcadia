@@ -15,8 +15,15 @@
         grid-gap: 20px;
     }
 }
-@media screen and (max-width: 500px){
+@media screen and (max-width: 450px){
     .note-grid{
         grid-gap: 0;
+    }
+}
+
+@media screen and (max-width: 410px){
+    .note-grid{
+        grid: auto-flow / 1fr;
+        grid-gap: 20px;
     }
 }
