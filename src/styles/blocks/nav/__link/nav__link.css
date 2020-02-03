@@ -22,8 +22,9 @@
 }
 
 @media screen and (max-width: 410px){
-    .nav__link.active{
+    .nav__link{
         text-align: center;
         padding: 15px 15px 15px 15px;
+        width: auto;
     }
 }
