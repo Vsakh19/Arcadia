@@ -4,7 +4,7 @@
     grid-gap: 40px;
 }
 
-@media screen and (max-width: 750px){
+@media screen and (max-width: 1200px){
     .note-grid{
         grid: auto-flow / 1fr 1fr;
     }
