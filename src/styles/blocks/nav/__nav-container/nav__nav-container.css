@@ -2,3 +2,15 @@
     display: flex;
     flex-direction: column;
 }
+
+@media screen and (max-width: 1000px){
+    .nav__nav-container{
+        width: 360px;
+    }
+}
+
+@media screen and (max-width: 410px){
+    .nav__nav-container{
+        width: 280px;
+    }
+}
