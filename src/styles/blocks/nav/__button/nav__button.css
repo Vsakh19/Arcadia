@@ -20,3 +20,10 @@
         border-radius: 25px;
     }
 }
+
+@media screen and (max-width: 410px){
+    .nav__button{
+        text-align: center;
+        padding: 15px 15px 15px 15px;
+    }
+}
